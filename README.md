@@ -1,48 +1,37 @@
-# Shopify Developer Challenge
+# Shopify Developer Challenge Completed
 
-Welcome, potential Shopify Expert!
+Hello,
 
-This challenge aims to gauge your Shopify skills through the creation of a simple Product Detail Page (PDP) using Shopify Liquid Syntax and the AJAX cart API, all contained within this repository.
-## Setup
+I have completed this task and added some information below as mentioned in last part.
 
-As mentioned, the challenge is self contained within this repository so there will be no need to create a dev store or anything like that. Instead we created a little module that will show rendered liquid code, serve static assets, and handle the cart POST request for you. And while it helps if you have an understanding of node-js, it should be simple enough to run without any help.
+## Description on liquid template
 
-Simply follow these instructions to get the project running:
+I kept the template.liquid file simple by including just the basic HTML structure, essential meta tags, and the header & footer code. I treated it as the main theme.liquid file in the Shopify theme. 
 
-1. Fork this repository into your own github profile and make any changes in that repository space.
-2. Clone the repository onto your development environment.
-3. From the new folder, install the required modules using `npm install` (Or your favorite package manager).
-4. Start the development server using `npm run dev`.
+In the product.liquid file, I used Liquid code to display product content such as product images, vendor name, title, description, and variant options.
 
-You should now have a development server running on port `3000` that will display the default information.
+I have created custom.css and custom.js files in the public folder. After completing the development, I created minified versions of both files. I made separate js and css files to maintain code cleanliness, which is a good practice to keep them separate from the template code. For speed optimization, I used the minified versions of both in page. Additionally, I kept the unminified versions of both files in the public folder for your review, along with some comments.
 
-## Challenge Instructions
+For designing the product section, I used custom CSS because Shopify themes often have their own grid structures and styles. The reason to use custom CSS, in most of the cases Clients typically prefer custom designs and layouts over standard theme designs.
 
-*Congratulations! You have made it this far!* Now for the actual fun part.
+Now, let's discuss the actual functionality and design-related aspects.
 
-The simple app is a single route web server that serves liquid templates out of the `templates` folder. Inside that folder there is a base `template.liquid` folder as well as the main file, `product.liquid` which serves as the main template file. It would be best to keep the template files simple, but you should be able to add additional templates or template parts as required.
-
-The data for the product page comes from the `product.json` file in the root of the main directory. This is a product object taken from an actual Shopify store and is passed to the rendering engine as the variable `product` which you should see in the `product.liquid` file.
-
-Any static files can be placed inside the `public` folder and they will be served from there. The images referenced in the product object are already inside that folder and can be accessed at `/images/{filename}.png`.
-
-So here is what we are looking for.
-
-* Using the liquid templates and whatever static assets you need, create a single simple product detail page that renders the product details.
-* Make sure to add some style. You can do this with a simple vanilla CSS file, a `<style>` tagin the head of the page, or if you are comfortable - with your favorite css compiler.
-* The PDP should have an add to cart button that is clearly visible.
-* Using some front end javascript, attach a handler to the add to cart button that posts the appropriate information the `cart/add.js` route. That route will simply return the data `{ success: 1 }` so display a success message to let the user know their product was added correctly!
-* Make sure the add to cart request sends the appropriate data to the endpoint to add an item to the cart (Using the shopify API paradigm).
+1. For the product images, I've created a simple function. When a thumbnail image is clicked, I update the src of the main image and add the "active" class to the clicked image element. And highlights the selected image using the CSS box-shadow property, making it easy for the user to see which image is selected from the product image list. I've also added a zoom-in effect using CSS when hovering over the main image.
+2. To properly display the price, I applied a money filter. To display each variant option on the page, I used the product variants loop. I utilized radio buttons to display the variants and customized the design of the radio buttons to enhance the look and feel.
+3. For Quntity selector, I used an input of type "number" and made it read-only so the user cannot manually enter a value. For increment and decrement functionality, I added plus and minus buttons. On click of those buttons, I call the function "updateQuantity" with true and false parameters.
+4. For Add to cart button, As mentioned I send a POST request to the 'cart/add.js' endpoint to add the one or more variants to the cart by passing the variant ID, quantity and size. On success, I update the cart count and display a popup confirming that the product has been successfully added to the cart, showing the size and quantity for the user's reference.
 
 
-## Troubleshooting tips
+## Improvement & favourite part
 
-Since this is not _actually_ a shopify site, we can't expect it to behave exactly like a shopify site in terms of error handling. If an error occurs (as in a mis-typed variable, or bad liquid syntax) the page will return a 500 error. All errors are logged in the console so look out there for what might be going wrong. 
+* I used the lazy load for the image part but I used the simple img tag for now. For better improvement, I can use the <picture> tag with different sources so that the image can render accordingly based on screen size.
+* In this, I simply display the product description below the "add to cart" section. Instead of this, for improvement, I can use an accordion for that and also add some more accordion panels for shipping and returns.
 
-To stop the development server, simlpy do a `ctrl` + `c` and the node process will stop.
+My favourite parts are developing the add to cart functionality, displaying a successful product addition to the cart and implementing animations on buttons or links to attract user attention.
 
-# LASTLY: THE MOST IMPORTANT PART
 
-When you are done - remove _ALL_ of the text from this README, and replace it with a description of what you did. Tell us why you made the choices you did, what you would have liked to do better, what was your favorite part, and most importantly, what would you change if this we're _ACTUALLY_ a shopify theme.
+## If this were actually shopify theme
 
-Once you have that done - Commit a new branch - and send us a link to your repo so that we can review what you did.
+1. I will implement a slider and image zoom in functionality instead of just displaying simple product images.
+2. I will offer color and size as variant options instead of just size, which will greatly improve the customer experience. I will also group product images based on selected colors and display color swatches instead of color names.
+3. Additionally, I will add a product review form, display the product review count below the product title, include a section for related products, add short videos demonstrating the comfort of the shoe, insert a section for recommended products below the add to cart button, display share icons, create a pop-up for the size guide, and introduce additional payment options for purchasing.

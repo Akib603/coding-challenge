@@ -1,2 +1,68 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{{product.title}} | Runners </title>
+        <meta name="description" content="{{ product.description | escape }}">
+        <link rel="stylesheet" type="text/css" href="./custom.min.css">
+    </head>
 
-{% block content %}{% endblock %}
+    <body>
+    
+        <header class="header sticky-header bg-black text-white">
+            <div class="container">
+                <div class="header-wrap d-flex justify-spacebetween align-center">
+                    <div class="left logo">
+                    <a href="/" class="home-link">
+                        <strong>Runners</strong>
+                    </a>
+                    </div>
+                    <div class="right cart">
+                        <a href="javascript:;" class="animate-border">Cart <span class="cart-count">0</span></a>
+                    </div>
+                </div>
+                <div class="cart-popup">
+                    <p class="mb-5"><strong>Product added successfully!</strong></p>
+                    <p>Size: <span class="variant-info"></span></p>
+                    <p>Quantity: <span class="quantity-info"></span></p>
+                </div>
+            </div>
+        </header>
+
+        {% comment %} main product content start {% endcomment %}
+        <div class="breadcrumb">
+            <div class="container">
+                <span><a href="/">Home</a></span> | <span>{{ product.title }}</span>
+            </div>
+        </div>
+        <main id="MainContent" class="content-for-layout" role="main">
+            {% block content %}{% endblock %}
+        </main>
+        
+        {% comment %} Footer content start {% endcomment %}
+
+        <footer class="footer bg-black text-white">
+            <div class="container">
+                <div class="text-center footer-logo">
+                    <a href="/" class="home-link">
+                        <strong>Runners</strong>
+                    </a>
+                </div>
+                <div class="footer-wrap  justify-spacebetween align-center">
+                    <div class="text-right social-icons">
+                        <ul class="d-flex">
+                            <li><a href="https://www.instagram.com/" target="_blank" class="animate-border">Instagram</a></li>
+                            <li><a href="https://www.facebook.com/" target="_blank" class="animate-border">Facebook</a></li>
+                        </ul>
+                    </div>
+                    <div class="">
+                    <small class="copy-right">&copy; {{ 'now' | date: '%Y' }} <a href="/" class="home-link animate-border">Runners</a>.</small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="./custom.min.js" defer></script>
+    </body>
+</html>

@@ -1,5 +1,63 @@
 {% layout "template.liquid" %}
 
 {% block content %}
-    <h1>{{ product.title | capitalize }}</h1>
+    <div class="product-wrapper">
+        <div class="container">
+            <div class="grid product-grid">
+                <div class="product-img-wrapper">
+                    <div class="main-imag product-medias">
+                        <div class="product-img">
+                               <img src="{{ product.featured_image | image_url }}" class="main-product-image" alt="{{ product.title }}" width="100%" height="100%" loading="lazy" />
+                           
+                        </div>
+                        <div class="product-media">
+                            <div class="product-image-gallery">
+                                {% for image in product.images %}
+                                    <div class="image-thumbnail{%  if image == product.featured_image %} active{% endif %}">
+                                        <img src="{{ image | image_url: 'thumb' }}" class="product-thumbnail" alt="{{ product.title }}" width="100%" height="100%" loading="lazy" />                                    
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content-wrapper">
+                    <div class="product-data">
+                        <div class="fs-10">{{product.vendor | upcase}}</div>
+                        <h1 class="product-title mb-10">{{product.title}}</h1>
+                        <div class="product-price mb-20">
+                            <span class="sale-price"><s>{{product.variants[0].compare_at_price | money_with_currency}}</s></span>
+                            <span class="regular-price"><strong>${{product.variants[0].price | money_with_currency}}</strong></span>
+                        </div>
+                        <div class="variant-wrap mb-20">
+                        <p class="mb-5"><label><strong>Select size:</strong></label></p>
+                        <div class="product-variant">
+                        {% for variant in product.variants %}
+                            <div class="variant variant-options">
+                                <input type="radio" name="product-variant" {% unless variant.available %}disabled{% endunless %} class="variant-radio" id="variant-{{forloop.index}}" {% if forloop.index == 1 %}checked{% endif %} value="{{variant.id}}" data-variant-text="{{ variant.title }}" data-price="{{variant.price | money}}" data-compare-price="{{variant.compare_at_price | money}}" />
+                                <label class="variant-pill" for="variant-{{forloop.index}}">{{variant.title}}</label>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        </div>
+                        <div class="quntity-and-btn mb-20">
+                        <div class="product-quantity">
+                            <button class="minus btn" onclick="updateQuantity(false);">-</button>
+                            <input type="number" name="quantity" class="quantity-input" value="1" min="1" readonly>
+                            <button class="btn plus" onclick="updateQuantity(true);">+</button>
+                        </div>
+                        <div class="add-to-cart">
+                            <button type="submit" id="add-to-cart" class="btn add-btn">Add to cart</button>
+                        </div>
+                        </div>
+                        <div class="desc-sec">
+                            <div class="desc-title mb-10"><strong>Description</strong></div>
+                            <div class="product-desc rte">{{ product.description }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
